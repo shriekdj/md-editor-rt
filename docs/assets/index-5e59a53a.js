@@ -1,6 +1,8 @@
-import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"./index-f0d109a4.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
+import{u as m,r as t,j as n,I as c,b as u}from"./index-bcd97300.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
 
-## 🤯 Props
+## 🔖 MdPreview Props
+
+This is the props of \`MdPreview\`, which is also part of \`MdEditor\`:
 
 ### 📃 modelValue
 
@@ -37,6 +39,251 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 
 ---
 
+### 🔤 language
+
+- **type**: \`string\`
+- **default**: \`'zh-CN'\`
+
+  Build-in language('zh-CN', 'en-US').
+
+  You can install the existing language also: [md-editor-extension](https://github.com/imzbf/md-editor-extension). Refer to extension library for the usage and the way to contribute~
+
+---
+
+### 🎲 editorId
+
+- **type**: \`string\`
+- **default**: \`'md-editor-rt'\`
+
+  Editor's id, also the html id, it is used when there are two or more editor and server render.
+
+---
+
+### 🔢 showCodeRowNumber
+
+- **type**: \`boolean\`
+- **default**: \`false\`
+
+  Show row number for code block or not.
+
+---
+
+### 🔦 previewTheme
+
+- **type**: \`'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'\`
+- **default**: \`'default'\`
+
+  Preview themes.
+
+  Custom:
+
+  1. Write css
+
+  \`\`\`css
+  .xxx-theme {
+    color: red;
+  }
+  \`\`\`
+
+  2. Set \`previewTheme\`
+
+  \`\`\`jsx
+  <MdEditor previewTheme="xxx" />
+  \`\`\`
+
+  For more, refer to [markdown-theme](https://github.com/imzbf/markdown-theme).
+
+---
+
+### 🎅🏻 style
+
+- **type**: \`CSSProperties\`
+- **default**: \`{}\`
+
+  Editor inline style.
+
+---
+
+### ☝️ noMermaid
+
+- **type**: \`boolean\`
+- **default**: \`false\`
+
+  do not want to use \`mermaid\`, set it to \`true\`.
+
+  \`\`\`jsx
+  <MdEditor noMermaid />
+  \`\`\`
+
+---
+
+### ❌ noKatex
+
+- **type**: \`boolean\`
+- **default**: \`false\`
+
+  Do not want to use \`katex\`, set it to \`true\`.
+
+---
+
+### 🦉 codeTheme
+
+- **type**: \`'atom'|'a11y'|'github'|'gradient'|'kimbie'|'paraiso'|'qtcreator'|'stackoverflow'\`
+- **default**: \`'atom'\`
+
+  Highlight code css name. Get Them from \`highlight.js\`.
+
+  Custom:
+
+  1. Config \`editorExtensions\`
+
+  \`\`\`js
+  import { config } from 'md-editor-rt';
+
+  config({
+    editorExtensions: {
+      highlight: {
+        css: {
+          atom: {
+            light:
+              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css',
+            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css'
+          },
+          xxx: {
+            light:
+              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-light.css',
+            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-dark.css'
+          }
+        }
+      }
+    }
+  });
+  \`\`\`
+
+  2. Set \`codeTheme\`
+
+  \`\`\`jsx
+  <MdEditor codeTheme="xxx" />
+  \`\`\`
+
+---
+
+### 🎱 mdHeadingId
+
+- **type**: \`(text: string, level: number, index: number) => string\`
+- **default**: \`(text) => text\`
+
+  Title \`ID\` generator.
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  const mdHeadingId = (_text, _level, index) => \`heading-\${index}\`;
+
+  export default () => {
+    return <MdEditor mdHeadingId={mdHeadingId} />;
+  };
+  \`\`\`
+
+---
+
+### 🐣 sanitize
+
+- **type**: \`(html: string) => string\`
+- **default**: \`(html) => html\`
+
+  Sanitize the html, prevent XSS. When you can be sure that your content is OK, ignore this.
+
+  \`sanitize-html\` example:
+
+  \`\`\`jsx
+  import sanitizeHtml from 'sanitize-html';
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  const sanitize = (html) => sanitizeHtml(html);
+
+  export default () => {
+    return <MdEditor sanitize={sanitize} />;
+  };
+  \`\`\`
+
+---
+
+### 🤞🏼 noIconfont
+
+- **type**: \`boolean\`
+- **default**:\`true\`
+
+  Not append iconfont script, [download](https://at.alicdn.com/t/c/font_2605852_u82y61ve02.js) and import it by yourself.
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  import '/assets/iconfont.js';
+
+  export default () => {
+    return <MdEditor noIconfont />;
+  };
+  \`\`\`
+
+---
+
+### 💅 formatCopiedText
+
+- **type**: \`(text: string) => string\`
+- **default**: \`(text) => text\`
+
+  Format copied code
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  export default () => {
+    const formatCopiedText = (text: string) => {
+      return \`\${text}  - from md-editor-rt\`;
+    };
+
+    return <MdEditor formatCopiedText={formatCopiedText} />;
+  };
+  \`\`\`
+
+---
+
+### 🛁 codeStyleReverse
+
+- **type**: \`boolean\`
+- **default**: \`true\`
+
+  Code style will be reversed to dark while code block of the theme has a dark background.
+
+---
+
+### 🧼 codeStyleReverseList
+
+- **type**: \`Array\`
+- **default**: \`['default', 'mk-cute']\`
+
+  Themes to be reversed.
+
+---
+
+### 🕊 noHighlight
+
+- **type**: \`boolean\`
+- **default**: \`false\`
+
+  never highlight code
+
+---
+
+## 🔩 MdEditor Props
+
+Except for the same as \`MdPreview\`:
+
 ### 💻 pageFullscreen
 
 - **type**: \`boolean\`
@@ -61,26 +308,6 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 - **default**: \`false\`
 
   Preview html in editor. Set \`preview\` to \`false\` when \`htmlPreview\` is \`true\`.
-
----
-
-### 📺 previewOnly
-
-- **type**: \`boolean\`
-- **default**: \`false\`
-
-  Only render article content, no toolbar, no edit area.
-
----
-
-### 🔤 language
-
-- **type**: \`string\`
-- **default**: \`'zh-CN'\`
-
-  Build-in language('zh-CN', 'en-US').
-
-  You can install the existing language also: [md-editor-extension](https://github.com/imzbf/md-editor-extension). Refer to extension library for the usage and the way to contribute~
 
 ---
 
@@ -141,124 +368,6 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 
 ---
 
-### 🪒 noPrettier
-
-- **type**: \`boolean\`
-- **default**: \`true\`
-
-  Use prettier to beautify content or not.
-
----
-
-### 🎲 editorId
-
-- **type**: \`string\`
-- **default**: \`'md-editor-rt'\`
-
-  Editor's id, also the html id, it is used when there are two or more editor and server render.
-
----
-
-### 🤏 tabWidth
-
-- **type**: \`number\`
-- **default**: \`2\`
-
-  One tab eq some space.
-
----
-
-### 🔢 showCodeRowNumber
-
-- **type**: \`boolean\`
-- **default**: \`false\`
-
-  Show row number for code block or not.
-
----
-
-### 🔦 previewTheme
-
-- **type**: \`'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'\`
-- **default**: \`'default'\`
-
-  Preview themes.
-
-  Custom:
-
-  1. Write css
-
-  \`\`\`css
-  .xxx-theme {
-    color: red;
-  }
-  \`\`\`
-
-  2. Set \`previewTheme\`
-
-  \`\`\`jsx
-  <MdEditor previewTheme="xxx" />
-  \`\`\`
-
-  For more, refer to [markdown-theme](https://github.com/imzbf/markdown-theme).
-
----
-
-### 🎅🏻 style
-
-- **type**: \`CSSProperties\`
-- **default**: \`{}\`
-
-  Editor inline style.
-
----
-
-### 📅 tableShape
-
-- **type**: \`[number, number]\`
-- **default**: \`[6, 4]\`
-
-  Preset the size of the table, [columns, rows].
-
-  \`\`\`jsx
-  <MdEditor tableShape={[8, 4]}>
-  \`\`\`
-
-  ![Preview](https://imzbf.github.io/md-editor-rt/imgs/20211216165424.png)
-
----
-
-### ☝️ noMermaid
-
-- **type**: \`boolean\`
-- **default**: \`false\`
-
-  do not want to use \`mermaid\`, set it to \`true\`.
-
-  \`\`\`jsx
-  <MdEditor noMermaid />
-  \`\`\`
-
----
-
-### 🪧 placeholder
-
-- **type**: \`string\`
-- **default**: \`''\`
-
-  em-\\_-！
-
----
-
-### ❌ noKatex
-
-- **type**: \`boolean\`
-- **default**: \`false\`
-
-  Do not want to use \`katex\`, set it to \`true\`.
-
----
-
 ### 💪 defToolbars
 
 - **type**: \`Array<VNode>\`
@@ -267,10 +376,8 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
   Custom toolbar in \`DropdownToolbar\`, \`NormalToolbar\` or \`ModalToolbar\`. To display them, put index of \`defToolbars\` into \`toolbars\`(this is not standard).
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
+  import { MdEditor, NormalToolbar } from 'md-editor-rt';
   import 'md-editor-rt/lib/style.css';
-
-  const NormalToolbar = MdEditor.NormalToolbar;
 
   const handler = () => {
     console.log('NormalToolbar clicked!');
@@ -305,88 +412,45 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 
 ---
 
-### 🦉 codeTheme
+### 🪒 noPrettier
 
-- **type**: \`'atom'|'a11y'|'github'|'gradient'|'kimbie'|'paraiso'|'qtcreator'|'stackoverflow'\`
-- **default**: \`'atom'\`
+- **type**: \`boolean\`
+- **default**: \`true\`
 
-  Highlight code css name. Get Them from \`highlight.js\`.
-
-  Custom:
-
-  1. Config \`editorExtensions\`
-
-  \`\`\`js
-  import MdEditor from 'md-editor-rt';
-
-  MdEditor.config({
-    editorExtensions: {
-      highlight: {
-        css: {
-          atom: {
-            light:
-              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css',
-            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css'
-          },
-          xxx: {
-            light:
-              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-light.css',
-            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-dark.css'
-          }
-        }
-      }
-    }
-  });
-  \`\`\`
-
-  2. Set \`codeTheme\`
-
-  \`\`\`jsx
-  <MdEditor codeTheme="xxx" />
-  \`\`\`
+  Use prettier to beautify content or not.
 
 ---
 
-### 🎱 mdHeadingId
+### 🤏 tabWidth
 
-- **type**: \`(text: string, level: number, index: number) => string\`
-- **default**: \`(text) => text\`
+- **type**: \`number\`
+- **default**: \`2\`
 
-  Title \`ID\` generator.
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  const mdHeadingId = (_text, _level, index) => \`heading-\${index}\`;
-
-  export default () => {
-    return <MdEditor mdHeadingId={mdHeadingId} />;
-  };
-  \`\`\`
+  One tab eq some space.
 
 ---
 
-### 🐣 sanitize
+### 📅 tableShape
 
-- **type**: \`(html: string) => string\`
-- **default**: \`(html) => html\`
+- **type**: \`[number, number]\`
+- **default**: \`[6, 4]\`
 
-  Sanitize the html, prevent XSS. When you can be sure that your content is OK, ignore this.
-
-  \`sanitize-html\` example:
+  Preset the size of the table, [columns, rows].
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-  import sanitizeHtml from 'sanitize-html';
-
-  const sanitize = (html) => sanitizeHtml(html);
-
-  export default () => {
-    return <MdEditor sanitize={sanitize} />;
-  };
+  <MdEditor tableShape={[8, 4]}>
   \`\`\`
+
+  ![Preview](https://imzbf.github.io/md-editor-rt/imgs/20211216165424.png)
+
+---
+
+### 🪧 placeholder
+
+- **type**: \`string\`
+- **default**: \`''\`
+
+  em-\\_-！
 
 ---
 
@@ -396,15 +460,6 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 - **default**: \`['markdownTotal', '=', 'scrollSwitch']\`
 
   Show contents of footer, they are divided by \`'='\`. Set it to [] to hidden footer.
-
----
-
-### ⛵️ scrollAuto
-
-- **type**: \`boolean\`
-- **default**: \`true\`
-
-  Scroll default setting.
 
 ---
 
@@ -419,45 +474,12 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 
 ---
 
-### 🤞🏼 noIconfont
+### ⛵️ scrollAuto
 
 - **type**: \`boolean\`
-- **default**:\`true\`
+- **default**: \`true\`
 
-  Not append iconfont script, [download](https://at.alicdn.com/t/c/font_2605852_u82y61ve02.js) and import it by yourself.
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  import '/assets/iconfont.js';
-
-  export default () => {
-    return <MdEditor noIconfont />;
-  };
-  \`\`\`
-
----
-
-### 💅 formatCopiedText
-
-- **type**: \`(text: string) => string\`
-- **default**: \`(text) => text\`
-
-  Format copied code
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  export default () => {
-    const formatCopiedText = (text: string) => {
-      return \`\${text}  - from md-editor-rt\`;
-    };
-
-    return <MdEditor formatCopiedText={formatCopiedText} />;
-  };
-  \`\`\`
+  Scroll default setting.
 
 ---
 
@@ -469,31 +491,13 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
   Not show the entrance to upload pictures
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
+  import { MdEditor } from 'md-editor-rt';
   import 'md-editor-rt/lib/style.css';
 
   export default () => {
     return <MdEditor noUploadImg />;
   };
   \`\`\`
-
----
-
-### 🛁 codeStyleReverse
-
-- **type**: \`boolean\`
-- **default**: \`true\`
-
-  Code style will be reversed to dark while code block of the theme has a dark background.
-
----
-
-### 🧼 codeStyleReverseList
-
-- **type**: \`Array\`
-- **default**: \`['default', 'mk-cute']\`
-
-  Themes to be reversed.
 
 ---
 
@@ -542,7 +546,27 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
 
 ---
 
-## 🪢 Event
+## 🧵 MdPreview Events
+
+### 🚁 onHtmlChanged
+
+- **type**: \`(h: string) => void\`
+
+  Compile markdown successful event, you can use it to get the html code.
+
+---
+
+### 🗒 onGetCatalog
+
+- **type**: \`(list: HeadList[]) => void\`
+
+  Get catalogue of article.
+
+---
+
+## 🪢 MdEditor Events
+
+Except for the same as \`MdPreview\`:
 
 ### 📞 onChange
 
@@ -559,7 +583,7 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
   Save Content event, \`ctrl+s\` and click button will trigger.
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
+  import { MdEditor } from 'md-editor-rt';
   import 'md-editor-rt/lib/style.css';
 
   export default () => {
@@ -586,9 +610,9 @@ import{u as m,r as t,j as n,I as c}from"./index-6f33acd2.js";import{I as u}from"
   Upload picture event, when picture is uploading the modal will not close, please provide right urls to the callback function.
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
-import 'md-editor-rt/lib/style.css';
 import axios from 'axios';
+import { MdEditor } from 'md-editor-rt';
+import 'md-editor-rt/lib/style.css';
 
 const onUploadImg = async (files, callback) => {
   const res = await Promise.all(
@@ -616,22 +640,6 @@ export default () => {
   return <MdEditor onUploadImg={onUploadImg} />;
 };
 \`\`\`
-
----
-
-### 🚁 onHtmlChanged
-
-- **type**: \`(h: string) => void\`
-
-  Compile markdown successful event, you can use it to get the html code.
-
----
-
-### 🗒 onGetCatalog
-
-- **type**: \`(list: HeadList[]) => void\`
-
-  Get catalogue of article.
 
 ---
 
@@ -675,22 +683,13 @@ export default () => {
 
 ---
 
-### 🕊 noHighlight
-
-- **type**: \`boolean\`
-- **default**: \`false\`
-
-  never highlight code
-
----
-
 ## 🤱🏼 Expose
 
 After 2.5.0, Editor exposes several methods on the instance, used to get or change the internal status of the editor.
 
-\`\`\`js
+\`\`\`jsx
 import React, { useState, useEffect, useRef } from 'react';
-import MdEditor, { ExposeParam } from 'md-editor-rt';
+import { MdEditor, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -841,17 +840,17 @@ editorRef.current?.focus();
 
 ## 💴 Config Editor
 
-Use \`MdEditor.config(option: ConfigOption)\` to reconfigure \`markdown-it\` and so on.
+Use \`config(option: ConfigOption)\` to reconfigure \`markdown-it\` and so on.
 
 - codeMirrorExtensions: Customize new extensions based on theme and default extensions f codeMirror.
 
   Example: Editor does not render the line number of textarea by default, this extension needs to be manually added
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
   import { lineNumbers } from '@codemirror/view';
 
-  MdEditor.config({
+  config({
     codeMirrorExtensions(_theme, extensions) {
       return [...extensions, lineNumbers()];
     }
@@ -863,10 +862,10 @@ Use \`MdEditor.config(option: ConfigOption)\` to reconfigure \`markdown-it\` and
   Example: Use \`markdown-it-anchor\` to render a hyperlink symbol to the right of the title
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
   import ancher from 'markdown-it-anchor';
 
-  MdEditor.config({
+  config({
     markdownItConfig(mdit) {
       mdit.use(ancher, {
         permalink: true
@@ -878,9 +877,9 @@ Use \`MdEditor.config(option: ConfigOption)\` to reconfigure \`markdown-it\` and
 - editorConfig: Add more languages, reset \`mermaid\` template or delay rendering time
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
 
-  MdEditor.config({
+  config({
     editorConfig: {
       languageUserDefined: {
         'en-US': {
@@ -984,9 +983,9 @@ Use \`MdEditor.config(option: ConfigOption)\` to reconfigure \`markdown-it\` and
 - editorExtensions: Config some dependency libraries, like highlight..
 
   \`\`\`typescript
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
 
-  MdEditor.config({
+  config({
     editorExtensions: { iconfont: 'https://xxx.cc' }
   });
   \`\`\`
@@ -995,9 +994,7 @@ Use \`MdEditor.config(option: ConfigOption)\` to reconfigure \`markdown-it\` and
     <summary>[EditorExtensions]</summary>
 
   \`\`\`ts
-  import MdEditor from 'md-editor-rt';
-
-  interface EditorExtensions {
+  export interface EditorExtensions {
     highlight?: {
       instance?: any;
       js?: string;
@@ -1076,11 +1073,9 @@ Shortcut keys are only available when the textarea is focused!
 
 ## 🪤 Internal components
 
-They are used as attributes of the editor component, eg: \`Editor.DropdownToolbar\`
+On-demand import, eg: \`import { DropdownToolbar } from 'md-editor-rt'\`.
 
 ### 🐣 NormalToolbar
-
-\`Editor.NormalToolbar\`
 
 - **props**
 
@@ -1097,7 +1092,7 @@ They are used as attributes of the editor component, eg: \`Editor.DropdownToolba
 usage:
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
+import { MdEditor, NormalToolbar } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -1106,7 +1101,7 @@ export default () => {
       modelValue=""
       editorId="md-prev"
       defToolbars={[
-        <MdEditor.NormalToolbar
+        <NormalToolbar
           title="mark"
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
@@ -1128,8 +1123,6 @@ export default () => {
 
 ### 🐼 DropdownToolbar
 
-\`Editor.DropdownToolbar\`
-
 - **props**
 
   - \`title\`: \`string\`, not necessary, title of toolbar.
@@ -1147,7 +1140,7 @@ export default () => {
 usage:
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
+import { MdEditor, DropdownToolbar } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -1156,7 +1149,7 @@ export default () => {
       modelValue={md}
       editorId="md-prev"
       defToolbars={[
-        <MdEditor.DropdownToolbar
+        <DropdownToolbar
           visible={emojiVisible}
           onChange={setEmojiVisible}
           overlay={
@@ -1218,62 +1211,68 @@ export default () => {
   - \`overlay\`: \`string | ReactElement\`, necessary, content of Modal.
 
 \`\`\`jsx
-<MdEditor
-  modelValue=""
-  editorId="md-prev"
-  defToolbars={[
-    <MdEditor.ModalToolbar
-      visible={state.visible}
-      isFullscreen={state.modalFullscreen}
-      showAdjust
-      title="title"
-      modalTitle="modalTitle"
-      width="870px"
-      height="600px"
-      onClick={() => {
-        setState({
-          ...state,
-          visible: true
-        });
-      }}
-      onClose={() => {
-        setState({
-          ...state,
-          visible: false
-        });
-      }}
-      onAdjust={() => {
-        setState({
-          ...state,
-          modalFullscreen: !state.modalFullscreen
-        });
-      }}
-      trigger={
-        <svg className="md-editor-icon" aria-hidden="true">
-          <use xlinkHref="#icon-read"></use>
-        </svg>
-      }
-    >
-      <div
-        style={{
-          height: '100%',
-          padding: '20px',
-          overflow: 'auto'
-        }}
-      >
-        <MdEditor
-          theme={store.theme}
-          language={store.lang}
-          previewTheme={store.previewTheme}
-          codeTheme={store.codeTheme}
-          editorId="edit2preview"
-          previewOnly
-          modelValue={props.mdText}
-        />
-      </div>
-    </MdEditor.ModalToolbar>
-  ]}
-/>
+import { MdEditor, MdPreview, ModalToolbar } from 'md-editor-rt';
+import 'md-editor-rt/lib/style.css';
+
+export default () => {
+  return (
+    <MdEditor
+      modelValue=""
+      editorId="md-prev"
+      defToolbars={[
+        <ModalToolbar
+          visible={state.visible}
+          isFullscreen={state.modalFullscreen}
+          showAdjust
+          title="title"
+          modalTitle="modalTitle"
+          width="870px"
+          height="600px"
+          onClick={() => {
+            setState({
+              ...state,
+              visible: true
+            });
+          }}
+          onClose={() => {
+            setState({
+              ...state,
+              visible: false
+            });
+          }}
+          onAdjust={() => {
+            setState({
+              ...state,
+              modalFullscreen: !state.modalFullscreen
+            });
+          }}
+          trigger={
+            <svg className="md-editor-icon" aria-hidden="true">
+              <use xlinkHref="#icon-read"></use>
+            </svg>
+          }
+        >
+          <div
+            style={{
+              height: '100%',
+              padding: '20px',
+              overflow: 'auto'
+            }}
+          >
+            <MdPreview
+              theme={store.theme}
+              language={store.lang}
+              previewTheme={store.previewTheme}
+              codeTheme={store.codeTheme}
+              editorId="edit2preview"
+              modelValue={props.mdText}
+            />
+          </div>
+        </ModalToolbar>
+      ]}
+    />
+  );
+};
 \`\`\`
 
 [ReadExtension Source Code](https://github.com/imzbf/md-editor-rt/blob/docs/src/components/ReadExtension/index.tsx)
@@ -1282,14 +1281,12 @@ export default () => {
 
 ### 🐻 MdCatalog
 
-\`Editor.MdCatalog\`
-
 - **props**
 
   - \`editorId\`: \`string\`, necessary, editor's \`editorId\`, used to register listening events.
   - \`className\`: \`string\`, not necessary.
   - \`mdHeadingId\`: \`mdHeadingId\`, not necessary, same as editor.
-  - \`scrollElement\`: \`string | HTMLElement\`, not necessary, it is an element selector when its type is string. When \`previewOnly\` eq \`true\`, it is usually set to \`document.documentElement\`.
+  - \`scrollElement\`: \`string | HTMLElement\`, not necessary, it is an element selector when its type is string. When using \`MdPreview\`, it is usually set to \`document.documentElement\`.
   - \`theme\`: 'light' | 'dark', not necessary, provide it when you want to change theme online, it is the same as Editor \`theme\`.
   - \`offsetTop\`: \`number\`, not necessary, highlight current item of catalogs when title is \`offsetTop\` pixels from the top, defalut 20.
   - \`scrollElementOffsetTop\`: \`number\`, not necessary, offsetTop of the scroll container，defalut 0.
@@ -1301,8 +1298,8 @@ export default () => {
 usage:
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
-import 'md-editor-rt/lib/style.css';
+import { MdPreview, MdCatalog } from 'md-editor-rt';
+import 'md-editor-rt/lib/preview.css';
 
 const editorId = 'my-editor';
 
@@ -1314,8 +1311,8 @@ export default () => {
 
   return (
     <>
-      <MdEditor modelValue={state.text} editorId={editorId} previewOnly />
-      <MdEditor.MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
+      <MdPreview modelValue={state.text} editorId={editorId} />
+      <MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
     </>
   );
 };
@@ -1328,9 +1325,9 @@ export default () => {
 [doc-en-US](https://github.com/imzbf/md-editor-rt/blob/dev-docs/public/doc-en-US.md)
 `,r=`> 在线尝试示例：[传送门](https://codesandbox.io/s/elated-khorana-65jmr)。
 
-## 🤯 Props 说明
+## 🔖 MdPreview Props
 
-这是组件最重要的一部分内容，\`md-editor-rt\`的属性参数如下：
+这是预览组件\`MdPreview\`的\`Props\`，它们同样也是\`MdEditor\`的：
 
 ### 📃 modelValue
 
@@ -1367,6 +1364,257 @@ export default () => {
 
 ---
 
+### 🔤 language
+
+- **类型**：\`string\`
+- **默认值**：\`'zh-CN'\`
+
+  内置中英文(\`'zh-CN'\`, \`'en-US'\`)，可自行扩展其他语言，同时可覆盖内置的中英文。
+
+  你也可以使用现成的扩展语言：[md-editor-extension](https://github.com/imzbf/md-editor-extension)。使用及贡献方式见扩展库文档~
+
+---
+
+### 🎲 editorId
+
+- **类型**：\`string\`
+- **默认值**：\`'md-editor-rt'\`
+
+  编辑器唯一标识，非必须项，服务端渲染时，防止产生服务端与客户端渲染内容不一致错误提示，以及单页面多编辑器时做区别。
+
+---
+
+### 🔢 showCodeRowNumber
+
+- **类型**：\`boolean\`
+- **默认值**：\`false\`
+
+  代码块是否显示行号。
+
+---
+
+### 🔦 previewTheme
+
+- **类型**：\`'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'\`
+- **默认值**：\`'default'\`
+
+  预览内容主题，支持自定义。
+
+  主题自定义方式：
+
+  1. 编辑 css
+
+  \`\`\`css
+  .xxx-theme {
+    color: red;
+  }
+  \`\`\`
+
+  2. 设置\`previewTheme\`
+
+  \`\`\`jsx
+  <MdEditor previewTheme="xxx" />
+  \`\`\`
+
+  参考[markdown-theme](https://github.com/imzbf/markdown-theme)项目。
+
+---
+
+### 🎅🏻 style
+
+- **类型**：\`CSSProperties\`
+- **默认值**：\`{}\`
+
+  编辑器内联样式。
+
+---
+
+### ☝️ noMermaid
+
+- **类型**：\`boolean\`
+- **默认值**：\`false\`
+
+  如果你不希望使用图表展示内容，可以设置关闭。
+
+\`\`\`jsx
+<MdEditor noMermaid />
+\`\`\`
+
+---
+
+### ❌ noKatex
+
+- **类型**：\`boolean\`
+- **默认值**：\`false\`
+
+  如果你不希望使用数学公式展示内容，可以设置关闭。
+
+\`\`\`jsx
+<MdEditor noKatex />
+\`\`\`
+
+---
+
+### 🦉 codeTheme
+
+- **类型**：\`'atom'|'a11y'|'github'|'gradient'|'kimbie'|'paraiso'|'qtcreator'|'stackoverflow'\`
+- **默认值**：\`'atom'\`
+
+  代码块高亮样式名称。
+
+  你可以添加自己的样式，把该属性设置为你想要的即可，方式如下：
+
+  1. 配置样式链接
+
+  \`\`\`js
+  import { config } from 'md-editor-rt';
+
+  config({
+    editorExtensions: {
+      highlight: {
+        css: {
+          atom: {
+            light:
+              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css',
+            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css'
+          },
+          xxx: {
+            light:
+              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-light.css',
+            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-dark.css'
+          }
+        }
+      }
+    }
+  });
+  \`\`\`
+
+  2. 设置\`codeTheme\`
+
+  \`\`\`jsx
+  <MdEditor codeTheme="xxx" />
+  \`\`\`
+
+---
+
+### 🎱 mdHeadingId
+
+- **类型**：\`(text: string, level: number, index: number) => string\`
+- **默认值**：\`(text) => text\`
+
+  构造标题\`ID\`的生成方式。
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  const mdHeadingId = (_text, _level, index) => \`heading-\${index}\`;
+
+  export default () => {
+    return <MdEditor mdHeadingId={mdHeadingId} />;
+  };
+  \`\`\`
+
+---
+
+### 🐣 sanitize
+
+- **类型**：\`(html: string) => string\`
+- **默认值**：\`(html) => html\`
+
+  在每次生成 html 后，通过该方法移除危险内容，比如 xss 相关，当你很确定你的内容不会出现类似情况时，不必设置它。
+
+  使用\`sanitize-html\`演示
+
+  \`\`\`jsx
+  import sanitizeHtml from 'sanitize-html';
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  const sanitize = (html) => sanitizeHtml(html);
+
+  export default () => {
+    return <MdEditor sanitize={sanitize} />;
+  };
+  \`\`\`
+
+  > 为什么不内置到编辑器：由于类似编辑器大多属于自行处理文本，自身即可确认内容是否安全，并不需要该功能。
+
+---
+
+### 🤞🏼 noIconfont
+
+- **类型**：\`boolean\`
+- **默认值**：\`true\`
+
+  不插入 iconfont 链接，你可以[下载](https://at.alicdn.com/t/c/font_2605852_u82y61ve02.js)到本地自行引入。
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  import '/assets/iconfont.js';
+
+  export default () => {
+    return <MdEditor noIconfont />;
+  };
+  \`\`\`
+
+---
+
+### 💅 formatCopiedText
+
+- **类型**：\`(text: string) => string\`
+- **默认值**：\`(text) => text\`
+
+  格式化复制代码
+
+  \`\`\`jsx
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  const formatCopiedText = (text: string) => {
+    return \`\${text}  - from md-editor-rt\`;
+  };
+
+  export default () => {
+    return <MdEditor formatCopiedText={formatCopiedText} />;
+  };
+  \`\`\`
+
+---
+
+### 🛁 codeStyleReverse
+
+- **类型**：\`boolean\`
+- **默认值**：\`true\`
+
+  某些预览主题的代码模块背景是暗色系，将这个属性设置为 true，会自动在该主题下的 light 模式下使用暗色系的代码风格。
+
+---
+
+### 🧼 codeStyleReverseList
+
+- **类型**：\`Array\`
+- **默认值**：\`['default', 'mk-cute']\`
+
+  需要自动调整的预览主题，已默认包含 default、mk-cute。
+
+---
+
+### 🕊 noHighlight
+
+- **类型**：\`boolean\`
+- **默认值**：\`false\`
+
+  不高亮代码，也不会加载相应的扩展库
+
+---
+
+## 🔩 MdEditor Props
+
+除去和\`MdPreivew\`相同的以外：
+
 ### 💻 pageFullscreen
 
 - **类型**：\`boolean\`
@@ -1395,30 +1643,6 @@ export default () => {
   \`\`\`jsx
   <MdEditor htmlPreview preview={false} />
   \`\`\`
-
----
-
-### 📺 previewOnly
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  仅预览模式，不显示 bar 和编辑框，只支持初始化设置。
-
-  \`\`\`jsx
-  <MdEditor previewOnly />
-  \`\`\`
-
----
-
-### 🔤 language
-
-- **类型**：\`string\`
-- **默认值**：\`'zh-CN'\`
-
-  内置中英文(\`'zh-CN'\`, \`'en-US'\`)，可自行扩展其他语言，同时可覆盖内置的中英文。
-
-  你也可以使用现成的扩展语言：[md-editor-extension](https://github.com/imzbf/md-editor-extension)。使用及贡献方式见扩展库文档~
 
 ---
 
@@ -1509,128 +1733,6 @@ export default () => {
 
 ---
 
-### 🪒 noPrettier
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  是否启用 prettier 优化 md 内容。
-
----
-
-### 🎲 editorId
-
-- **类型**：\`string\`
-- **默认值**：\`'md-editor-rt'\`
-
-  编辑器唯一标识，非必须项，服务端渲染时，防止产生服务端与客户端渲染内容不一致错误提示，以及单页面多编辑器时做区别。
-
----
-
-### 🤏 tabWidth
-
-- **类型**：\`number\`
-- **默认值**：\`2\`
-
-  编辑器一个 TAB 键等于空格数。
-
----
-
-### 🔢 showCodeRowNumber
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  代码块是否显示行号。
-
----
-
-### 🔦 previewTheme
-
-- **类型**：\`'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'\`
-- **默认值**：\`'default'\`
-
-  预览内容主题，支持自定义。
-
-  主题自定义方式：
-
-  1. 编辑 css
-
-  \`\`\`css
-  .xxx-theme {
-    color: red;
-  }
-  \`\`\`
-
-  2. 设置\`previewTheme\`
-
-  \`\`\`jsx
-  <MdEditor preview-theme="xxx" />
-  \`\`\`
-
-  参考[markdown-theme](https://github.com/imzbf/markdown-theme)项目。
-
----
-
-### 🎅🏻 style
-
-- **类型**：\`CSSProperties\`
-- **默认值**：\`{}\`
-
-  编辑器内联样式。
-
----
-
-### 📅 tableShape
-
-- **类型**：\`[number, number]\`
-- **默认值**：\`[6, 4]\`
-
-  标题栏添加表格时，预设待选表格大小，第一个代表最大列数，第二个代表最大行数。
-
-\`\`\`jsx
-<MdEditor tableShape={[8, 4]}>
-\`\`\`
-
-![表格预设大小预览](https://imzbf.github.io/md-editor-rt/imgs/20211216165424.png)
-
----
-
-### ☝️ noMermaid
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  如果你不希望使用图表展示内容，可以设置关闭。
-
-\`\`\`jsx
-<MdEditor noMermaid />
-\`\`\`
-
----
-
-### 🪧 placeholder
-
-- **类型**：\`string\`
-- **默认值**：\`''\`
-
-  啊这-\\_-！
-
----
-
-### ❌ noKatex
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  如果你不希望使用数学公式展示内容，可以设置关闭。
-
-\`\`\`jsx
-<MdEditor noKatex />
-\`\`\`
-
----
-
 ### 💪 defToolbars
 
 - **类型**：\`Array<ReactElement>\`
@@ -1639,10 +1741,8 @@ export default () => {
   自定义工具栏插槽，通过使用内置的\`NormalToolbar\`普通点击触发事件组件，\`DropdownToolbar\`下拉点击触发事件组件，和\`ModalToolbar\`弹窗组件进行扩展。将\`defToolbars\`插槽中的组件下标穿插在\`toolbars\`实现展示（这并不规范）
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
+  import { MdEditor, NormalToolbar } from 'md-editor-rt';
   import 'md-editor-rt/lib/style.css';
-
-  const NormalToolbar = MdEditor.NormalToolbar;
 
   const handler = () => {
     console.log('NormalToolbar clicked!');
@@ -1677,90 +1777,45 @@ export default () => {
 
 ---
 
-### 🦉 codeTheme
+### 🪒 noPrettier
 
-- **类型**：\`'atom'|'a11y'|'github'|'gradient'|'kimbie'|'paraiso'|'qtcreator'|'stackoverflow'\`
-- **默认值**：\`'atom'\`
+- **类型**：\`boolean\`
+- **默认值**：\`false\`
 
-  代码块高亮样式名称。
-
-  你可以添加自己的样式，把该属性设置为你想要的即可，方式如下：
-
-  1. 配置样式链接
-
-  \`\`\`js
-  import MdEditor from 'md-editor-rt';
-
-  MdEditor.config({
-    editorExtensions: {
-      highlight: {
-        css: {
-          atom: {
-            light:
-              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css',
-            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css'
-          },
-          xxx: {
-            light:
-              'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-light.css',
-            dark: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/xxx-dark.css'
-          }
-        }
-      }
-    }
-  });
-  \`\`\`
-
-  2. 设置\`codeTheme\`
-
-  \`\`\`jsx
-  <MdEditor codeTheme="xxx" />
-  \`\`\`
+  是否启用 prettier 优化 md 内容。
 
 ---
 
-### 🎱 mdHeadingId
+### 🤏 tabWidth
 
-- **类型**：\`(text: string, level: number, index: number) => string\`
-- **默认值**：\`(text) => text\`
+- **类型**：\`number\`
+- **默认值**：\`2\`
 
-  构造标题\`ID\`的生成方式。
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  const mdHeadingId = (_text, _level, index) => \`heading-\${index}\`;
-
-  export default () => {
-    return <MdEditor mdHeadingId={mdHeadingId} />;
-  };
-  \`\`\`
+  编辑器一个 TAB 键等于空格数。
 
 ---
 
-### 🐣 sanitize
+### 📅 tableShape
 
-- **类型**：\`(html: string) => string\`
-- **默认值**：\`(html) => html\`
+- **类型**：\`[number, number]\`
+- **默认值**：\`[6, 4]\`
 
-  在每次生成 html 后，通过该方法移除危险内容，比如 xss 相关，当你很确定你的内容不会出现类似情况时，不必设置它。
+  标题栏添加表格时，预设待选表格大小，第一个代表最大列数，第二个代表最大行数。
 
-  使用\`sanitize-html\`演示
+\`\`\`jsx
+<MdEditor tableShape={[8, 4]}>
+\`\`\`
 
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-  import sanitizeHtml from 'sanitize-html';
+![表格预设大小预览](https://imzbf.github.io/md-editor-rt/imgs/20211216165424.png)
 
-  const sanitize = (html) => sanitizeHtml(html);
+---
 
-  export default () => {
-    return <MdEditor sanitize={sanitize} />;
-  };
-  \`\`\`
+### 🪧 placeholder
 
-  > 为什么不内置到编辑器：由于类似编辑器大多属于自行处理文本，自身即可确认内容是否安全，并不需要该功能。
+- **类型**：\`string\`
+- **默认值**：\`''\`
+
+  啊这-\\_-！
 
 ---
 
@@ -1770,15 +1825,6 @@ export default () => {
 - **默认值**：\`['markdownTotal', '=', 'scrollSwitch']\`
 
   页脚显示内容，\`'='\`左右分割，设置为\`[]\`不显示页脚。
-
----
-
-### ⛵️ scrollAuto
-
-- **类型**：\`boolean\`
-- **默认值**：\`true\`
-
-  默认左右同步滚动状态。
 
 ---
 
@@ -1793,45 +1839,12 @@ export default () => {
 
 ---
 
-### 🤞🏼 noIconfont
+### ⛵️ scrollAuto
 
 - **类型**：\`boolean\`
 - **默认值**：\`true\`
 
-  不插入 iconfont 链接，你可以[下载](https://at.alicdn.com/t/c/font_2605852_u82y61ve02.js)到本地自行引入。
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  import '/assets/iconfont.js';
-
-  export default () => {
-    return <MdEditor noIconfont />;
-  };
-  \`\`\`
-
----
-
-### 💅 formatCopiedText
-
-- **类型**：\`(text: string) => string\`
-- **默认值**：\`(text) => text\`
-
-  格式化复制代码
-
-  \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
-  import 'md-editor-rt/lib/style.css';
-
-  export default () => {
-    const formatCopiedText = (text: string) => {
-      return \`\${text}  - from md-editor-rt\`;
-    };
-
-    return <MdEditor formatCopiedText={formatCopiedText} />;
-  };
-  \`\`\`
+  默认左右同步滚动状态。
 
 ---
 
@@ -1845,24 +1858,6 @@ export default () => {
   \`\`\`jsx
   <MdEditor noUploadImg />
   \`\`\`
-
----
-
-### 🛁 codeStyleReverse
-
-- **类型**：\`boolean\`
-- **默认值**：\`true\`
-
-  某些预览主题的代码模块背景是暗色系，将这个属性设置为 true，会自动在该主题下的 light 模式下使用暗色系的代码风格。
-
----
-
-### 🧼 codeStyleReverseList
-
-- **类型**：\`Array\`
-- **默认值**：\`['default', 'mk-cute']\`
-
-  需要自动调整的预览主题，已默认包含 default、mk-cute。
 
 ---
 
@@ -1911,9 +1906,27 @@ export default () => {
 
 ---
 
-## 🪢 绑定事件
+## 🧵 MdPreview 绑定事件
 
-目前支持的内容如下：
+### 🚁 onHtmlChanged
+
+- **类型**：\`(h: string) => void\`
+
+  html 变化回调事件，用于获取预览 html 代码。
+
+---
+
+### 🗒 onGetCatalog
+
+- **类型**：\`(list: HeadList[]) => void\`
+
+  动态获取\`markdown\`目录。
+
+---
+
+## 🪢 MdEditor 绑定事件
+
+除去和\`MdPreivew\`相同的以外：
 
 ### 📞 onChange
 
@@ -1930,7 +1943,7 @@ export default () => {
   保存事件，快捷键与保存按钮均会触发。
 
   \`\`\`jsx
-  import MdEditor from 'md-editor-rt';
+  import { MdEditor } from 'md-editor-rt';
   import 'md-editor-rt/lib/style.css';
 
   export default () => {
@@ -1957,7 +1970,7 @@ export default () => {
   上传图片事件，弹窗会等待上传结果，务必将上传后的 urls 作为 callback 入参回传。
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
+import { MdEditor } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 import axios from 'axios';
 
@@ -1987,22 +2000,6 @@ export default () => {
   return <MdEditor onUploadImg={onUploadImg} />;
 };
 \`\`\`
-
----
-
-### 🚁 onHtmlChanged
-
-- **类型**：\`(h: string) => void\`
-
-  html 变化回调事件，用于获取预览 html 代码。
-
----
-
-### 🗒 onGetCatalog
-
-- **类型**：\`(list: HeadList[]) => void\`
-
-  动态获取\`markdown\`目录。
 
 ---
 
@@ -2046,22 +2043,13 @@ export default () => {
 
 ---
 
-### 🕊 noHighlight
-
-- **类型**：\`boolean\`
-- **默认值**：\`false\`
-
-  不高亮代码，也不会加载相应的扩展库
-
----
-
 ## 🤱🏼 实例暴露
 
 2.5.0 版本之后，编辑器暴露了若干方法在组件实例上，用来快捷监听编辑器内部状态或对调整内部状态。
 
 \`\`\`jsx
 import React, { useState, useEffect, useRef } from 'react';
-import MdEditor, { ExposeParam } from 'md-editor-rt';
+import { MdEditor, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -2214,17 +2202,17 @@ editorRef.current?.focus();
 
 ## 💴 配置编辑器
 
-使用\`MdEditor.config(option: ConfigOption)\`方法，可以对构建实例进行定制。
+使用\`config(option: ConfigOption)\`方法，可以对构建实例进行定制。
 
 - codeMirrorExtensions: 根据主题和内部默认的 codeMirror 扩展自定义新的扩展。
 
   使用示例：编辑器默认不显示输入框的行号，需要手动添加扩展
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
   import { lineNumbers } from '@codemirror/view';
 
-  MdEditor.config({
+  config({
     codeMirrorExtensions(_theme, extensions) {
       return [...extensions, lineNumbers()];
     }
@@ -2236,10 +2224,10 @@ editorRef.current?.focus();
   使用示例：配置使用\`markdown-it-anchor\`并在标题右侧显示一个超链接符号
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
   import ancher from 'markdown-it-anchor';
 
-  MdEditor.config({
+  config({
     markdownItConfig(mdit) {
       mdit.use(ancher, {
         permalink: true
@@ -2251,9 +2239,9 @@ editorRef.current?.focus();
 - editorConfig: 编辑器常规配置，语言、\`mermaid\`默认模板、渲染延迟：
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
 
-  MdEditor.config({
+  config({
     editorConfig: {
       // 语言
       languageUserDefined: {
@@ -2366,9 +2354,9 @@ editorRef.current?.focus();
 - editorExtensions: 类型如下，用于配置编辑器内部的扩展
 
   \`\`\`js
-  import MdEditor from 'md-editor-rt';
+  import { config } from 'md-editor-rt';
 
-  MdEditor.config({
+  config({
     editorExtensions: { iconfont: 'https://xxx.cc' }
   });
   \`\`\`
@@ -2377,9 +2365,7 @@ editorRef.current?.focus();
     <summary>[EditorExtensions]</summary>
 
   \`\`\`ts
-  import MdEditor from 'md-editor-rt';
-
-  interface EditorExtensions {
+  export interface EditorExtensions {
     highlight?: {
       instance?: any;
       js?: string;
@@ -2460,7 +2446,7 @@ editorRef.current?.focus();
 
 ## 🪤 内置组件
 
-扩展组件作为编辑器组件的属性值来使用，例如：\`MdEditor.DropdownToolbar\`。
+按需引用编辑器的扩展组件，例如：\`import { DropdownToolbar } from 'md-editor-rt'\`。
 
 ### 🐣 NormalToolbar
 
@@ -2477,7 +2463,7 @@ editorRef.current?.focus();
   - \`trigger\`: \`string | ReactElement\`，必须，通常是个图标，用来展示在工具栏上。
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
+import { MdEditor, NormalToolbar } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -2486,7 +2472,7 @@ export default () => {
       modelValue=""
       editorId="md-prev"
       defToolbars={[
-        <MdEditor.NormalToolbar
+        <NormalToolbar
           title="标记"
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
@@ -2523,38 +2509,43 @@ export default () => {
   - \`overlay\`: \`string | ReactElement\`，必须，下拉框中的内容。
 
 \`\`\`jsx
-<MdEditor
-  modelValue=""
-  editorId="md-prev"
-  defToolbars={[
-    <MdEditor.DropdownToolbar
-      visible={emojiVisible}
-      onChange={setEmojiVisible}
-      overlay={
-        <div className="emoji-container">
-          <ol className="emojis">
-            {emojis.map((emoji, index) => (
-              <li
-                key={\`emoji-\${index}\`}
-                onClick={() => {
-                  emojiHandler(emoji);
-                }}
-              >
-                {emoji}
-              </li>
-            ))}
-          </ol>
-        </div>
-      }
-      trigger={
-        <svg className="md-editor-icon" aria-hidden="true">
-          <use xlinkHref="#icon-emoji"></use>
-        </svg>
-      }
-      key="emoji-toolbar"
-    />
-  ]}
-/>
+import { MdEditor, DropdownToolbar } from 'md-editor-rt';
+import 'md-editor-rt/lib/style.css';
+
+export default () => (
+  <MdEditor
+    modelValue=""
+    editorId="md-prev"
+    defToolbars={[
+      <DropdownToolbar
+        visible={emojiVisible}
+        onChange={setEmojiVisible}
+        overlay={
+          <div className="emoji-container">
+            <ol className="emojis">
+              {emojis.map((emoji, index) => (
+                <li
+                  key={\`emoji-\${index}\`}
+                  onClick={() => {
+                    emojiHandler(emoji);
+                  }}
+                >
+                  {emoji}
+                </li>
+              ))}
+            </ol>
+          </div>
+        }
+        trigger={
+          <svg className="md-editor-icon" aria-hidden="true">
+            <use xlinkHref="#icon-emoji"></use>
+          </svg>
+        }
+        key="emoji-toolbar"
+      />
+    ]}
+  />
+);
 \`\`\`
 
 [获取使用源码](https://github.com/imzbf/md-editor-rt/blob/docs/src/components/EmojiExtension/index.tsx)
@@ -2585,7 +2576,7 @@ export default () => {
   - \`overlay\`: \`string | ReactElement\`，必须，下拉框中的内容。
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
+import { MdEditor, MdPreview, ModalToolbar } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
@@ -2594,7 +2585,7 @@ export default () => {
       modelValue=""
       editorId="md-prev"
       defToolbars={[
-        <MdEditor.ModalToolbar
+        <ModalToolbar
           visible={state.visible}
           isFullscreen={state.modalFullscreen}
           showAdjust
@@ -2633,17 +2624,16 @@ export default () => {
               overflow: 'auto'
             }}
           >
-            <MdEditor
+            <MdPreview
               theme={store.theme}
               language={store.lang}
               previewTheme={store.previewTheme}
               codeTheme={store.codeTheme}
               editorId="edit2preview"
-              previewOnly
               modelValue={props.mdText}
             />
           </div>
-        </MdEditor.ModalToolbar>
+        </ModalToolbar>
       ]}
     />
   );
@@ -2655,8 +2645,6 @@ export default () => {
 ---
 
 ### 🐻 MdCatalog
-
-\`Editor.MdCatalog\`
 
 - **props**
 
@@ -2675,8 +2663,8 @@ export default () => {
 > \`scrollElement\`说明：仅预览下，该元素必须已定位的并且支持滚动。
 
 \`\`\`jsx
-import MdEditor from 'md-editor-rt';
-import 'md-editor-rt/lib/style.css';
+import { MdPreview, MdCatalog } from 'md-editor-rt';
+import 'md-editor-rt/lib/preview.css';
 
 const editorId = 'my-editor';
 
@@ -2688,8 +2676,8 @@ export default () => {
 
   return (
     <>
-      <MdEditor modelValue={state.text} editorId={editorId} previewOnly />
-      <MdEditor.MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
+      <MdPreview modelValue={state.text} editorId={editorId} />
+      <MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
     </>
   );
 };
@@ -2698,4 +2686,4 @@ export default () => {
 ## ✍️ 编辑此页面
 
 [doc-zh-CN](https://github.com/imzbf/md-editor-rt/blob/dev-docs/public/doc-zh-CN.md)
-`,i="doc-preview",h=()=>{const e=m(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{h as default};
+`,i="doc-preview",g=()=>{const e=m(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};

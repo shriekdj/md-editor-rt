@@ -1,4 +1,4 @@
-import{u as h,r as t,j as n,I as l}from"./index-6f33acd2.js";import{I as p}from"./index-f0d109a4.js";const a=`## 🐶 Heading
+import{u as h,r as t,j as n,I as l,b as p}from"./index-bcd97300.js";const a=`## 🐶 Heading
 
 \`\`\`markdown
 ## Heading
@@ -584,4 +584,4 @@ failure、danger、bug、example、quote、hint、caution、error、attention
 
 !!!
 \`\`\`
-`,o="grammar-preview",w=()=>{const e=h(s=>s),[r,d]=t.useState(()=>e.lang==="zh-CN"?i:a),m=()=>{d(e.lang==="en-US"?a:i)};return t.useEffect(m,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(l,{editorId:o,modelValue:r,showCodeRowNumber:!1}),n.jsx(p,{editorId:o})]})})};export{w as default};
+`,o="grammar-preview",c=()=>{const e=h(s=>s),[r,d]=t.useState(()=>e.lang==="zh-CN"?i:a),m=()=>{d(e.lang==="en-US"?a:i)};return t.useEffect(m,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(l,{editorId:o,modelValue:r,showCodeRowNumber:!1}),n.jsx(p,{editorId:o})]})})};export{c as default};
