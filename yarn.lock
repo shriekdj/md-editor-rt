@@ -1164,10 +1164,15 @@
     "@typescript-eslint/types" "5.59.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vavt/markdown-theme@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@vavt/markdown-theme/-/markdown-theme-3.0.0.tgz#ce7433428f65ee3397fde6abe5bc14ad70520b07"
-  integrity sha512-Vp/q1woesYOodIyQFUIeDflwrnXdRtLljbQa5tm3IUI75RDNB3K1R9NU/aPUhafkITQvnwl7U2uOXnXd2JJRBA==
+"@vavt/markdown-theme@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@vavt/markdown-theme/-/markdown-theme-3.0.1.tgz#49a454d107457f33b06f950a60c3c8f13d23ef8e"
+  integrity sha512-lNucyAdmGJMUWUEfkg/6mI2hzV0TaSK+WyBjkONTYNJf63QatuVsrU0lhGA9j99Rfaroo2dW5Z0yO13vOHUN/Q==
+
+"@vavt/util@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@vavt/util/-/util-1.0.0.tgz#0ce2b9df247649ebc13feabeb58f3670580f5824"
+  integrity sha512-i7Q8PMoZy2z2l1XFrI4VRrrfdNS0NM+CB231qojUy5r81ED4yk4cQX7wn+lid4FJdS8vidhJ8LRb1hSLhYtXjg==
 
 "@vavt/vite-plugin-import-markdown@^1.0.0":
   version "1.0.0"
@@ -3173,7 +3178,7 @@ prr@~1.0.1:
   resolved "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
   integrity sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==
 
-punycode@^2.1.0:
+punycode@^2.1.0, punycode@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==

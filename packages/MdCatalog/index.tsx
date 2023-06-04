@@ -6,10 +6,11 @@ import React, {
   MouseEvent,
   useCallback
 } from 'react';
+import { throttle } from '@vavt/util';
 import bus from '~/utils/event-bus';
 import { HeadList, MdHeadingId, Themes } from '~/type';
 import { defaultProps, prefix } from '~/config';
-import { throttle, getRelativeTop } from '~/utils';
+import { getRelativeTop } from '~/utils';
 import CatalogLink from './CatalogLink';
 
 export interface TocItem {
@@ -127,6 +128,7 @@ const MdCatalog = (props: CatalogProps) => {
   useEffect(() => {
     const findActiveHeading = throttle((list_: HeadList[]) => {
       if (list_.length === 0) {
+        setList([]);
         return false;
       }
 
