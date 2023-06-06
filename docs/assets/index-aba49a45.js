@@ -1,4 +1,4 @@
-import{u as m,r as t,j as n,I as c,b as u}from"./index-939d065e.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
+import{u as c,r as t,j as n,I as m,b as u}from"./index-8e5810cc.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
 
 ## 🔖 MdPreview Props
 
@@ -1092,14 +1092,37 @@ On-demand import, eg: \`import { DropdownToolbar } from 'md-editor-rt'\`.
 usage:
 
 \`\`\`jsx
-import { MdEditor, NormalToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, NormalToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
+  const editorRef = useRef<ExposeParam>();
+  const [value, setValue] = useState('');
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    Content to be inserted
+       * @return select         Automatically select content
+       * @return deviationStart Start position of the selected content
+       * @return deviationEnd   End position of the selected content
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
+
   return (
     <MdEditor
-      modelValue=""
+      ref={editorRef}
+      modelValue={value}
       editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
       defToolbars={[
         <NormalToolbar
           title="mark"
@@ -1108,10 +1131,11 @@ export default () => {
               <use xlinkHref="#icon-mark"></use>
             </svg>
           }
-          onClick={console.log}
+          onClick={insert}
           key="mark-toolbar"
         />
       ]}
+      onChange={setValue}
     />
   );
 };
@@ -1140,35 +1164,47 @@ export default () => {
 usage:
 
 \`\`\`jsx
-import { MdEditor, DropdownToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, DropdownToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState('');
+  const editorRef = useRef<ExposeParam>();
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    Content to be inserted
+       * @return select         Automatically select content
+       * @return deviationStart Start position of the selected content
+       * @return deviationEnd   End position of the selected content
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
+
   return (
     <MdEditor
-      modelValue={md}
+      ref={editorRef}
+      modelValue={value}
       editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
       defToolbars={[
         <DropdownToolbar
-          visible={emojiVisible}
-          onChange={setEmojiVisible}
+          visible={visible}
+          onChange={setVisible}
           overlay={
-            <>
-              <div className="emoji-container">
-                <ol className="emojis">
-                  {emojis.map((emoji, index) => (
-                    <li
-                      key={\`emoji-\${index}\`}
-                      onClick={() => {
-                        emojiHandler(emoji);
-                      }}
-                    >
-                      {emoji}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </>
+            <ul>
+              <li onClick={insert}>option 1</li>
+              <li>option 2</li>
+            </ul>
           }
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
@@ -1178,6 +1214,7 @@ export default () => {
           key="emoji-toolbar"
         />
       ]}
+      onChange={setValue}
     />
   );
 };
@@ -1211,40 +1248,55 @@ export default () => {
   - \`overlay\`: \`string | ReactElement\`, necessary, content of Modal.
 
 \`\`\`jsx
-import { MdEditor, MdPreview, ModalToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, ModalToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [value, setValue] = useState('');
+  const editorRef = useRef<ExposeParam>();
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    Content to be inserted
+       * @return select         Automatically select content
+       * @return deviationStart Start position of the selected content
+       * @return deviationEnd   End position of the selected content
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
   return (
     <MdEditor
-      modelValue=""
+      ref={editorRef}
+      modelValue={value}
       editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
       defToolbars={[
         <ModalToolbar
-          visible={state.visible}
-          isFullscreen={state.modalFullscreen}
+          visible={visible}
+          isFullscreen={isFullscreen}
           showAdjust
-          title="title"
+          title="hover-title"
           modalTitle="modalTitle"
           width="870px"
           height="600px"
           onClick={() => {
-            setState({
-              ...state,
-              visible: true
-            });
+            setVisible(true);
           }}
           onClose={() => {
-            setState({
-              ...state,
-              visible: false
-            });
+            setVisible(false);
           }}
           onAdjust={() => {
-            setState({
-              ...state,
-              modalFullscreen: !state.modalFullscreen
-            });
+            setIsFullscreen((i) => !i);
           }}
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
@@ -1259,17 +1311,11 @@ export default () => {
               overflow: 'auto'
             }}
           >
-            <MdPreview
-              theme={store.theme}
-              language={store.lang}
-              previewTheme={store.previewTheme}
-              codeTheme={store.codeTheme}
-              editorId="edit2preview"
-              modelValue={props.mdText}
-            />
+            <button onClick={insert}>click me</button>
           </div>
         </ModalToolbar>
       ]}
+      onChange={setValue}
     />
   );
 };
@@ -1311,6 +1357,7 @@ export default () => {
 
   return (
     <>
+      {/* Ensure that the editorId is the same */}
       <MdPreview modelValue={state.text} editorId={editorId} />
       <MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
     </>
@@ -2463,26 +2510,57 @@ editorRef.current?.focus();
   - \`trigger\`: \`string | ReactElement\`，必须，通常是个图标，用来展示在工具栏上。
 
 \`\`\`jsx
-import { MdEditor, NormalToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, DropdownToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState('');
+  const editorRef = useRef<ExposeParam>();
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    待插入内容
+       * @return select         插入后是否自动选中内容
+       * @return deviationStart 插入后选中内容鼠标开始位置
+       * @return deviationEnd   插入后选中内容鼠标结束位置
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
+
   return (
     <MdEditor
-      modelValue=""
+      ref={editorRef}
+      modelValue={value}
       editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
       defToolbars={[
-        <NormalToolbar
-          title="标记"
+        <DropdownToolbar
+          visible={visible}
+          onChange={setVisible}
+          overlay={
+            <ul>
+              <li onClick={insert}>option 1</li>
+              <li>option 2</li>
+            </ul>
+          }
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
-              <use xlinkHref="#icon-mark"></use>
+              <use xlinkHref="#icon-emoji"></use>
             </svg>
           }
-          onClick={console.log}
-          key="mark-toolbar"
+          key="emoji-toolbar"
         />
       ]}
+      onChange={setValue}
     />
   );
 };
@@ -2509,43 +2587,60 @@ export default () => {
   - \`overlay\`: \`string | ReactElement\`，必须，下拉框中的内容。
 
 \`\`\`jsx
-import { MdEditor, DropdownToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, DropdownToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
-export default () => (
-  <MdEditor
-    modelValue=""
-    editorId="md-prev"
-    defToolbars={[
-      <DropdownToolbar
-        visible={emojiVisible}
-        onChange={setEmojiVisible}
-        overlay={
-          <div className="emoji-container">
-            <ol className="emojis">
-              {emojis.map((emoji, index) => (
-                <li
-                  key={\`emoji-\${index}\`}
-                  onClick={() => {
-                    emojiHandler(emoji);
-                  }}
-                >
-                  {emoji}
-                </li>
-              ))}
-            </ol>
-          </div>
-        }
-        trigger={
-          <svg className="md-editor-icon" aria-hidden="true">
-            <use xlinkHref="#icon-emoji"></use>
-          </svg>
-        }
-        key="emoji-toolbar"
-      />
-    ]}
-  />
-);
+export default () => {
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState('');
+  const editorRef = useRef<ExposeParam>();
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    待插入内容
+       * @return select         插入后是否自动选中内容
+       * @return deviationStart 插入后选中内容鼠标开始位置
+       * @return deviationEnd   插入后选中内容鼠标结束位置
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
+
+  return (
+    <MdEditor
+      ref={editorRef}
+      modelValue={value}
+      editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
+      defToolbars={[
+        <DropdownToolbar
+          visible={visible}
+          onChange={setVisible}
+          overlay={
+            <ul>
+              <li onClick={insert}>选项 1</li>
+              <li>选项 2</li>
+            </ul>
+          }
+          trigger={
+            <svg className="md-editor-icon" aria-hidden="true">
+              <use xlinkHref="#icon-emoji"></use>
+            </svg>
+          }
+          key="emoji-toolbar"
+        />
+      ]}
+      onChange={setValue}
+    />
+  );
+};
 \`\`\`
 
 [获取使用源码](https://github.com/imzbf/md-editor-rt/blob/docs/src/components/EmojiExtension/index.tsx)
@@ -2576,40 +2671,55 @@ export default () => (
   - \`overlay\`: \`string | ReactElement\`，必须，下拉框中的内容。
 
 \`\`\`jsx
-import { MdEditor, MdPreview, ModalToolbar } from 'md-editor-rt';
+import { useCallback, useRef, useState } from 'react';
+import { MdEditor, ModalToolbar, ExposeParam } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [value, setValue] = useState('');
+  const editorRef = useRef<ExposeParam>();
+
+  const insert = useCallback(() => {
+    editorRef.current?.insert((selectedText) => {
+      /**
+       * @return targetValue    待插入内容
+       * @return select         插入后是否自动选中内容
+       * @return deviationStart 插入后选中内容鼠标开始位置
+       * @return deviationEnd   插入后选中内容鼠标结束位置
+       */
+      return {
+        targetValue: \`==\${selectedText}==\`,
+        select: true,
+        deviationStart: 0,
+        deviationEnd: 0
+      };
+    });
+  }, []);
   return (
     <MdEditor
-      modelValue=""
+      ref={editorRef}
+      modelValue={value}
       editorId="md-prev"
+      toolbars={['bold', 0, '=', 'github']}
       defToolbars={[
         <ModalToolbar
-          visible={state.visible}
-          isFullscreen={state.modalFullscreen}
+          visible={visible}
+          isFullscreen={isFullscreen}
           showAdjust
-          title="弹窗预览"
-          modalTitle="编辑预览"
+          title="hover-title"
+          modalTitle="modalTitle"
           width="870px"
           height="600px"
           onClick={() => {
-            setState({
-              ...state,
-              visible: true
-            });
+            setVisible(true);
           }}
           onClose={() => {
-            setState({
-              ...state,
-              visible: false
-            });
+            setVisible(false);
           }}
           onAdjust={() => {
-            setState({
-              ...state,
-              modalFullscreen: !state.modalFullscreen
-            });
+            setIsFullscreen((i) => !i);
           }}
           trigger={
             <svg className="md-editor-icon" aria-hidden="true">
@@ -2624,17 +2734,11 @@ export default () => {
               overflow: 'auto'
             }}
           >
-            <MdPreview
-              theme={store.theme}
-              language={store.lang}
-              previewTheme={store.previewTheme}
-              codeTheme={store.codeTheme}
-              editorId="edit2preview"
-              modelValue={props.mdText}
-            />
+            <button onClick={insert}>点击</button>
           </div>
         </ModalToolbar>
       ]}
+      onChange={setValue}
     />
   );
 };
@@ -2676,7 +2780,8 @@ export default () => {
 
   return (
     <>
-      <MdPreview modelValue={state.text} editorId={editorId} />
+      {/* 保证editorId是相同的 */}
+      <MdPreview editorId={editorId} modelValue={state.text} />
       <MdCatalog editorId={editorId} scrollElement={state.scrollElement} />
     </>
   );
@@ -2686,4 +2791,4 @@ export default () => {
 ## ✍️ 编辑此页面
 
 [doc-zh-CN](https://github.com/imzbf/md-editor-rt/blob/dev-docs/public/doc-zh-CN.md)
-`,i="doc-preview",g=()=>{const e=m(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};
+`,i="doc-preview",g=()=>{const e=c(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(m,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};
