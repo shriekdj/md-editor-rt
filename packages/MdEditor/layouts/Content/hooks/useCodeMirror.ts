@@ -3,6 +3,7 @@ import { EditorView, minimalSetup } from 'codemirror';
 import { keymap } from '@codemirror/view';
 import { languages } from '@codemirror/language-data';
 import { markdown } from '@codemirror/lang-markdown';
+import { html } from '@codemirror/lang-html';
 import { indentWithTab, undo, redo } from '@codemirror/commands';
 import { configOption } from '~/config';
 import bus from '~/utils/event-bus';
@@ -41,6 +42,7 @@ const useCodeMirror = (props: ContentProps) => {
     return [
       keymap.of([...mdEditorCommands, indentWithTab]),
       minimalSetup,
+      html(),
       markdown({ codeLanguages: languages }),
       // 横向换行
       EditorView.lineWrapping,
