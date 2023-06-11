@@ -1,4 +1,4 @@
-import{u as c,r as t,j as n,I as m,b as u}from"./index-8e5810cc.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
+import{u as m,r as t,j as n,I as c,b as u}from"./index-87a63251.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
 
 ## 🔖 MdPreview Props
 
@@ -543,6 +543,50 @@ Except for the same as \`MdPreview\`:
 - **default**: \`false\`
 
   Auto detect the type of pasted code, only support that copied from \`vscode\`.
+
+---
+
+### 📝 completions
+
+- **type**: \`Array<CompletionSource>\`
+- **default**: \`[]\`
+
+  Additional completion sources.
+
+  \`\`\`tsx
+  import { useMemo, useState } from 'react';
+  import { CompletionSource } from '@codemirror/autocomplete';
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  export default () => {
+    const [t, s] = useState('');
+
+    const completions = useMemo<Array<CompletionSource>>(() => {
+      return [
+        (context) => {
+          const word = context.matchBefore(/@\\w*/);
+
+          if (word === null || (word.from == word.to && context.explicit)) {
+            return null;
+          }
+
+          return {
+            from: word.from,
+            options: [
+              {
+                label: '@imzbf',
+                type: 'text'
+              }
+            ]
+          };
+        }
+      ];
+    }, []);
+
+    return <MdEditor modelValue={t} onChange={s} completions={completions} />;
+  };
+  \`\`\`
 
 ---
 
@@ -1953,6 +1997,50 @@ export default () => {
 
 ---
 
+### 📝 completions
+
+- **类型**：\`Array<CompletionSource>\`
+- **默认值**：\`[]\`
+
+  添加额外的输入自动完成来源。
+
+  \`\`\`tsx
+  import { useMemo, useState } from 'react';
+  import { CompletionSource } from '@codemirror/autocomplete';
+  import { MdEditor } from 'md-editor-rt';
+  import 'md-editor-rt/lib/style.css';
+
+  export default () => {
+    const [t, s] = useState('');
+
+    const completions = useMemo<Array<CompletionSource>>(() => {
+      return [
+        (context) => {
+          const word = context.matchBefore(/@\\w*/);
+
+          if (word === null || (word.from == word.to && context.explicit)) {
+            return null;
+          }
+
+          return {
+            from: word.from,
+            options: [
+              {
+                label: '@imzbf',
+                type: 'text'
+              }
+            ]
+          };
+        }
+      ];
+    }, []);
+
+    return <MdEditor modelValue={t} onChange={s} completions={completions} />;
+  };
+  \`\`\`
+
+---
+
 ## 🧵 MdPreview 绑定事件
 
 ### 🚁 onHtmlChanged
@@ -2791,4 +2879,4 @@ export default () => {
 ## ✍️ 编辑此页面
 
 [doc-zh-CN](https://github.com/imzbf/md-editor-rt/blob/dev-docs/public/doc-zh-CN.md)
-`,i="doc-preview",g=()=>{const e=c(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(m,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};
+`,i="doc-preview",g=()=>{const e=m(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};

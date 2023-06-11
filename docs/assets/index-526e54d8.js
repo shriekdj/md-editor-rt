@@ -1,4 +1,4 @@
-import{u as l,r as t,j as n,I as c,b as p,f as u}from"./index-8e5810cc.js";const r=`## 😁 Basic Usage
+import{u as l,r as t,j as n,I as c,b as p,e as u}from"./index-87a63251.js";const r=`## 😁 Basic Usage
 
 It has been developing iteratively, so update the latest version please. Publish logs: [releases](https://github.com/imzbf/md-editor-rt/releases)
 
