@@ -7,6 +7,8 @@ import {
   CompletionSource
 } from '@codemirror/autocomplete';
 
+import { htmlCompletionSource } from '@codemirror/lang-html';
+
 const getPairApply = (
   flag: string,
   type: string,
@@ -149,7 +151,9 @@ const createAutocompletion = (completions: Array<CompletionSource> | undefined) 
   };
 
   return autocompletion({
-    override: completions ? [defaultCompletion, ...completions] : [defaultCompletion]
+    override: completions
+      ? [defaultCompletion, htmlCompletionSource, ...completions]
+      : [defaultCompletion]
   });
 };
 
