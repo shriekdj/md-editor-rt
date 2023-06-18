@@ -1,4 +1,4 @@
-import{u as m,r as t,j as n,I as c,b as u}from"./index-2a9c9264.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
+import{a as m,r as t,j as n,I as c,d as u}from"./index-34191ec2.js";const o=`> Use it online: [Go](https://codesandbox.io/s/elated-khorana-65jmr)
 
 ## 🔖 MdPreview Props
 
@@ -876,8 +876,27 @@ editorRef.current?.insert((selectedText) => {
 
 Focus on the textarea.
 
-\`\`\`js
-editorRef.current?.focus();
+\`\`\`ts
+import type { FocusOption } from 'md-editor-rt';
+
+const option: FocusOption | undefined = 'start';
+
+// Cursor position when focusing on textarea, default: position when it last lost focus
+editorRef.current?.focus(option);
+\`\`\`
+
+\`\`\`ts
+type FocusOption =
+  | 'start'
+  | 'end'
+  | {
+      // Start position, default cursor position
+      rangeAnchor?: number;
+      // End position, default cursor position
+      rangeHead?: number;
+      // Cursor position
+      cursorPos: number;
+    };
 \`\`\`
 
 ---
@@ -2369,8 +2388,27 @@ editorRef.value?.insert((selectedText) => {
 
 手动聚焦输入框。
 
-\`\`\`js
-editorRef.current?.focus();
+\`\`\`ts
+import type { FocusOption } from 'md-editor-rt';
+
+const option: FocusOption | undefined = 'start';
+
+// 聚焦时光标的位置，不提供默认上次失焦时的位置
+editorRef.current?.focus(option);
+\`\`\`
+
+\`\`\`ts
+type FocusOption =
+  | 'start'
+  | 'end'
+  | {
+      // 选中的开始位置，默认光标位置
+      rangeAnchor?: number;
+      // 选中的结束位置，默认光标位置
+      rangeHead?: number;
+      // 光标的位置
+      cursorPos: number;
+    };
 \`\`\`
 
 ---
@@ -2959,4 +2997,4 @@ export default () => {
 ## ✍️ 编辑此页面
 
 [doc-zh-CN](https://github.com/imzbf/md-editor-rt/blob/dev-docs/public/doc-zh-CN.md)
-`,i="doc-preview",g=()=>{const e=m(d=>d),[s,l]=t.useState(()=>e.lang==="zh-CN"?r:o),a=()=>{l(e.lang==="en-US"?o:r)};return t.useEffect(a,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};
+`,i="doc-preview",g=()=>{const e=m(d=>d),[s,a]=t.useState(()=>e.lang==="zh-CN"?r:o),l=()=>{a(e.lang==="en-US"?o:r)};return t.useEffect(l,[e.lang]),n.jsx("div",{className:"container",children:n.jsxs("div",{className:"doc",children:[n.jsx(c,{editorId:i,modelValue:s}),n.jsx(u,{editorId:i})]})})};export{g as default};
